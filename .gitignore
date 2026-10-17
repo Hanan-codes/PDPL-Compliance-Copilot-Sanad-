@@ -1,27 +1,11 @@
-# Python
 __pycache__/
 *.pyc
 .venv/
-venv/
-
-# Jupyter
 .ipynb_checkpoints/
-
-# Secrets
 .env
 .env.*
 !.env.example
-
-# Local datasets and generated outputs
-data/raw/
-data/extracted/
-data/processed/
-rag_output/
-sdaia_six_corpus/
 pdpl_corpus/
-
-# Model artifacts
-*.pth
-*.pt
-*.faiss
-*.index
+sdaia_six_corpus/
+PDPL_quality_outputs/
+rag_output/
