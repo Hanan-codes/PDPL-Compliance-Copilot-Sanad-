@@ -1,0 +1,62 @@
+{
+  "first_party_collection_use": {
+    "threshold": 0.65,
+    "val_f1": 0.8302,
+    "val_positives": 113,
+    "threshold_reliable": true
+  },
+  "third_party_sharing_collection": {
+    "threshold": 0.45,
+    "val_f1": 0.8502,
+    "val_positives": 98,
+    "threshold_reliable": true
+  },
+  "user_choice_control": {
+    "threshold": 0.6,
+    "val_f1": 0.7568,
+    "val_positives": 38,
+    "threshold_reliable": true
+  },
+  "user_access_edit_deletion": {
+    "threshold": 0.3,
+    "val_f1": 0.7778,
+    "val_positives": 16,
+    "threshold_reliable": true
+  },
+  "data_retention": {
+    "threshold": 0.2,
+    "val_f1": 0.6154,
+    "val_positives": 9,
+    "threshold_reliable": true
+  },
+  "data_security": {
+    "threshold": 0.45,
+    "val_f1": 0.7917,
+    "val_positives": 21,
+    "threshold_reliable": true
+  },
+  "policy_change": {
+    "threshold": 0.5,
+    "val_f1": 0.9231,
+    "val_positives": 12,
+    "threshold_reliable": true
+  },
+  "do_not_track": {
+    "threshold": 0.5,
+    "val_f1": 1.0,
+    "val_positives": 3,
+    "threshold_reliable": false
+  },
+  "international_specific_audiences": {
+    "threshold": 0.5,
+    "val_f1": 0.9825,
+    "val_positives": 29,
+    "threshold_reliable": true
+  },
+  "other": {
+    "threshold": 0.55,
+    "val_f1": 0.7702,
+    "val_positives": 88,
+    "threshold_reliable": true
+  }
+}

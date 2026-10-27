@@ -1,0 +1,11 @@
+﻿category,test_support,precision,recall,f1,f1_at_0.5,threshold,val_positives,threshold_reliable
+first_party_collection_use,126,0.906,0.762,0.828,0.848,0.65,113,True
+third_party_sharing_collection,93,0.745,0.849,0.794,0.798,0.45,98,True
+user_choice_control,30,0.88,0.733,0.8,0.78,0.6,38,True
+user_access_edit_deletion,14,0.765,0.929,0.839,0.786,0.3,16,True
+data_retention,6,0.5,0.833,0.625,0.909,0.2,9,True
+data_security,19,0.64,0.842,0.727,0.727,0.45,21,True
+policy_change,12,0.786,0.917,0.846,0.846,0.5,12,True
+do_not_track,3,1.0,1.0,1.0,1.0,0.5,3,False
+international_specific_audiences,30,0.966,0.933,0.949,0.949,0.5,29,True
+other,96,0.824,0.583,0.683,0.67,0.55,88,True
