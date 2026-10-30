@@ -1,0 +1,5 @@
+﻿metric,value,status
+Correctness (mean/2),0.9338,مؤقتة (متوسط المقيّمين)
+Full-correct share,0.8824,مؤقتة (متوسط المقيّمين)
+Faithfulness,,مؤقتة (على 0 سؤال درجه المقيّمان)
+Citation accuracy (weighted),,مؤقتة (على 0 سؤال درجه المقيّمان)
