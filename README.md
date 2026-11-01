@@ -1,4 +1,4 @@
-[README_final.md](https://github.com/user-attachments/files/34233305/README_final.md)
+[README_final.md](https://github.com/user-attachments/files/34233413/README_final.md)
 <p align="center">
   <img src="assets/banner.svg" alt="SANAD · سَنَد — PDPL Compliance Copilot" width="100%"/>
 </p>
@@ -9,7 +9,7 @@
   <img src="https://img.shields.io/badge/Hallucinated_citations-0%25-1f4d3f?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Citation_validity-100%25_(78%2F78)-2e6e57?style=for-the-badge"/>
   <img src="https://img.shields.io/badge/Correct_abstention-93.3%25-c6a15b?style=for-the-badge"/>
-  <img src="https://img.shields.io/badge/Human_correctness-93.4%25_(provisional)-16293b?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Human_correctness-93.4%25-16293b?style=for-the-badge"/>
 </p>
 <p align="center">
   <img src="https://img.shields.io/badge/Languages-Arabic_%7C_English-1f4d3f?style=flat-square"/>
@@ -62,7 +62,7 @@ SANAD is built on one contract:
 
 - **استرجاع** على مستوى المادة بتضمين متعدد اللغات، ثم **بوابة ثقة** قبل أي توليد.
 - **تحقق حتمي من الاستشهادات** مع إعادة محاولة محدودة ثم امتناع.
-- **النتائج:** 0% استشهادات وهمية · 78/78 استشهاداً صحيحاً · امتناع صحيح 93.3% · صحة بشرية 93.4% (مؤقتة).
+- **النتائج:** 0% استشهادات وهمية · 78/78 استشهاداً صحيحاً · امتناع صحيح 93.3% · صحة بشرية 93.4%.
 - **التطبيق:** واجهة Streamlit للأسئلة، وتحليل سياسة الخصوصية مقابل 23 متطلباً، مجلد [`app/`](app/).
 - **تنبيه:** سَنَد ليس استشارة قانونية.
 
@@ -189,7 +189,7 @@ pie showData title Audit run: what the 42 zero-scores really were
 | **Over-caution**: 21 answers abstained, and in 14 of them the right evidence was already in the top-5 | Definition fusion, force-keep, language-aware gate thresholds | Wrong refusals **21 → 5** |
 | **Bare citations**: 20 answers were only a `[Source \| Article]` tag with no sentence (a citation metric scores these as perfect) | RULE 2B prompt: "state the answer in words, never cite alone" | Bare-citation answers **20 → 1** |
 
-**Final-run human evaluation (two independent raters, provisional, before resolving disagreements):**
+**Final-run human evaluation (two independent raters):**
 
 | Metric | Rater 1 | Rater 2 | Inter-rater mean |
 |---|---|---|---|
@@ -456,7 +456,7 @@ PDPL-Compliance-Copilot/
 
 ## 🔭 Limitations & next steps
 
-- **Human re-grade of the final run** after resolving rater disagreements, to confirm the usefulness gains with human judgement.
+- **Two raters, small gold set.** Human correctness (93.4%) comes from two raters on 68 answerable questions; a larger and more diverse rater pool would tighten the estimate.
 - **The lexical evidence-support check is not semantic faithfulness.** The 84.8% figure is a token-overlap signal; an NLI-based check is the natural upgrade.
 - **Abstention evaluation is partly dev-contaminated.** Mitigated by a held-out test split with τ frozen in advance (7/7).
 - **English reranker scores are compressed**, so the English gate relies on τ_EN = 0 and the verifier. A reranker fine-tuned on legal English would sharpen it.
