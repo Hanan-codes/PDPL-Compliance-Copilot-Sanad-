@@ -1,86 +1,27 @@
-# سَنَد · SANAD
 
-مساعد امتثال لنظام حماية البيانات الشخصية السعودي (PDPL) ولائحته التنفيذية. يجاوب على الأسئلة من النصوص الرسمية مع استشهاد بالمادة، ويحلّل سياسة خصوصية جهة مقابل 23 متطلبًا من النظام.
+## Quick start
 
-> **تنبيه:** أداة مساعدة، وليست استشارة قانونية.
-
-## المميزات
-- **سؤال وجواب مؤسَّس:** إجابات بالعربي أو الإنجليزي، فيها استشهاد بالمادة، أو امتناع صريح إذا ما فيه أساس في النص.
-- **تحليل امتثال سياسة:** يصنّف كل متطلب كـ مغطّى / جزئي / مفقود، مع الدليل من النص، ويصدّر التقرير بصيغة JSON أو PDF.
-
-## المتطلبات
-- Python 3.10 أو أحدث.
-- ذاكرة 8 جيجابايت على الأقل (الاسترجاع يحمّل نماذج كبيرة).
-- إنترنت في أول تشغيل، لتحميل نماذج الاسترجاع من Hugging Face.
-- مزوّد لغوي واحد على الأقل:
-  - **Gemini:** مفتاح API من Google AI Studio.
-  - **Ollama (محلي):** تثبيت Ollama ثم `ollama pull qwen2.5:7b`.
-
-## التثبيت
+**Requirements:** Python 3.10+, about 8 GB RAM, internet access on first run (retrieval models are downloaded from Hugging Face), and one LLM provider (Gemini API key, or Ollama).
 
 ```bash
 git clone https://github.com/<your-user>/sanad.git
 cd sanad
 python -m venv .venv
-# Windows:
-.venv\Scripts\activate
-# macOS / Linux:
-source .venv/bin/activate
-
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-## الإعداد
+**Configure a provider.**
 
-**مع Gemini:**
-```bash
-cp .streamlit/secrets.toml.example .streamlit/secrets.toml
-```
-وعدّلي الملف الجديد وضعي مفتاحك في `GEMINI_API_KEY`.
+- *Gemini:* copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml` and set `GEMINI_API_KEY`. Never commit this file.
+- *Ollama:* install Ollama, then run `ollama pull qwen2.5:7b` and `ollama serve`.
 
-**مع Ollama:** لا تحتاجين مفتاح. شغّلي Ollama في الخلفية، وتأكدي أن النموذج موجود:
-```bash
-ollama pull qwen2.5:7b
-ollama serve
-```
-
-## التشغيل
+**Run.**
 
 ```bash
 streamlit run app.py
 ```
 
-ثم افتحي الرابط الذي يطلع (عادةً `http://localhost:8501`):
-1. اختاري المزوّد من الشريط الجانبي.
-2. اضغطي **🔌 الاتصال / تهيئة النظام**، وانتظري (أول مرة تأخذ عدة دقائق).
-3. جاوبي على سؤال من تبويب **سؤال وجواب**، أو حلّلي سياسة من تبويب **تحليل امتثال سياسة**.
+In the sidebar, choose a provider and click **Connect / Initialise**. The first start loads the models and can take several minutes.
 
-## هيكل المشروع
-
-```
-app.py                         واجهة Streamlit
-rag_inference.py               الاسترجاع، والإجابة مع الاستشهاد، والتحقق
-gap_analyser.py                محلل الفجوات (تصنيف، ربط، حكم، تحقق)
-gap_analyser_inference.py      محوّل بين الواجهة والمحلل
-clause_classifier_inference.py مصنّف فقرات OPP-115
-pdf_report.py                  تصدير تقرير الامتثال PDF
-pdpl_requirements_checklist.json قائمة المتطلبات الـ23
-e4_tfidf_lr_model.joblib       نموذج المصنّف المدرّب
-data/                          مقاطع النصوص القانونية وفهارس FAISS
-assets/                        الشعار والخطوط
-```
-
-## استكشاف الأخطاء
-
-- **`OSError ... 1455` على ويندوز:** ملف الصفحات صغير. زيدي حجم ملف الصفحات (Virtual memory) في إعدادات النظام، أو أغلقي البرامج الثقيلة.
-- **خطأ في تحميل المصنّف بسبب الإصدار:** ثبّتي `scikit-learn==1.8.0` بالضبط.
-- **الاستشهادات لا تظهر، أو تطلع "غير مشمول" لكل الأسئلة:** تأكدي أن مجلد `data/` فيه الملفات كاملة، وأن الفهارس مبنية من نفس المقاطع.
-- **النتائج لا تتطابق مع ما قبل:** احذفي `llm_cache.jsonl` إذا كان موجودًا محليًا، لأنه يخزّن الردود السابقة.
-
-## حدود النظام
-- التغطية تعني أن النص **يذكر** العنصر، وليست دليلًا على أن الجهة **ملتزمة** عمليًا.
-- المصنّف مدرّب على سياسات إنجليزية (OPP-115)، فتصنيف السياسات العربية غير موثوق. الحكم المعتمد هو نموذج اللغة.
-- الإجابات تعتمد على جودة الاسترجاع وقدرة النموذج على الالتزام بصيغة الاستشهاد.
-
-## الترخيص
-<!-- اختاري الترخيص وأضيفيه هنا -->
+## Project structure
