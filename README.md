@@ -199,7 +199,76 @@ pie showData title Audit run: what the 42 zero-scores really were
 | Wrong answers (grade 0) | 5 | 2 | 2 |
 
 ---
+### 🏷️ Clause classifier (experiment E4): TF-IDF + LR vs fine-tuned BERT
 
+The gap analyser labels each policy clause with one of the ten OPP-115 data-practice categories. E4 asks whether a fine-tuned transformer beats a TF-IDF + logistic-regression baseline on that task. Scores are on **372 test segments from 12 policies the models never saw** (policies are split, never segments).
+
+| Metric (test set) | TF-IDF + LR | Fine-tuned BERT |
+|---|---|---|
+| Macro-F1, per-class thresholds | 0.809 | **0.839** |
+| Macro-F1, default 0.5 threshold | 0.831 | 0.830 |
+| Micro-F1, per-class thresholds | 0.791 | **0.828** |
+| Micro-F1, default 0.5 threshold | 0.796 | **0.824** |
+| Macro-F1 95% interval (policy bootstrap) | 0.762 – 0.872 | 0.796 – 0.907 |
+
+<sub>Thresholds are tuned per category on validation and the test set is scored once. Intervals come from resampling the 12 test policies 1,000 times.</sub>
+
+**What it shows**
+
+- **No clear winner.** BERT is ahead with tuned thresholds (macro-F1 +0.030), but at the default 0.5 threshold the two are tied (0.831 vs 0.830) and the intervals overlap heavily.
+- **BERT's edge is on frequent categories.** Micro-F1, which is dominated by the large categories, is higher in both settings (+0.037 and +0.028), while macro-F1, which weights every category equally, is not.
+- **Threshold tuning is fragile.** It helped BERT slightly (0.830 → 0.839) and hurt the baseline (0.831 → 0.809). With only 11 validation policies, a threshold fitted to a handful of examples does not transfer: for the baseline, Data retention fell from F1 0.909 to 0.625.
+- **The app ships TF-IDF + LR.** It runs on CPU with no model download. The fine-tuned BERT is an experiment and is not part of the deployed app.
+
+<details>
+<summary><b>🧪 How E4 was run</b></summary>
+
+<br/>
+
+- **Data:** 3,792 OPP-115 segments. A category becomes a label when at least 2 of the 3 annotators chose it; 63 segments with no such agreement are excluded, leaving **3,729** (3,005 train · 352 validation · 372 test).
+- **Split:** by policy, **92 / 11 / 12** policies. No policy appears in two splits.
+- **Baseline:** TF-IDF (word 1–2-grams, `min_df` 2, sublinear TF) + one-vs-rest logistic regression (balanced class weights, C = 4).
+- **Transformer:** `bert-base-uncased`, sigmoid outputs, binary cross-entropy with `pos_weight = sqrt(neg/pos)`, max length 256, batch 16, learning rate 3e-5, weight decay 0.01, 10% warm-up, seed 42. Best epoch 5 of 6, chosen on validation macro-F1.
+- **Metrics:** per-category precision, recall and F1, plus macro-F1. Macro-F1 is the headline because a segment carries about 1.15 of 10 possible labels, so plain accuracy rewards predicting nothing.
+- **Reproduce:** `OPP115_Build_Segments_Dataset.ipynb` → `OPP115_E4_Baseline_TFIDF_LR.ipynb` → `OPP115_E4_Transformer_FineTune.ipynb`.
+
+</details>
+
+<details>
+<summary><b>📋 Per-category results (TF-IDF + LR baseline, test set)</b></summary>
+
+<br/>
+
+| Category | Test segments | Precision | Recall | F1 |
+|---|---|---|---|---|
+| First-party collection/use | 126 | 0.906 | 0.762 | 0.828 |
+| Other | 96 | 0.824 | 0.583 | 0.683 |
+| Third-party sharing/collection | 93 | 0.745 | 0.849 | 0.794 |
+| User choice/control | 30 | 0.880 | 0.733 | 0.800 |
+| International & specific audiences | 30 | 0.966 | 0.933 | 0.949 |
+| Data security | 19 | 0.640 | 0.842 | 0.727 |
+| User access, edit & deletion | 14 | 0.765 | 0.929 | 0.839 |
+| Policy change | 12 | 0.786 | 0.917 | 0.846 |
+| Data retention | 6 | 0.500 | 0.833 | 0.625 |
+| Do not track | 3 | 1.000 | 1.000 | 1.000 |
+
+<sub>Do not track (3 segments) and Data retention (6) are too small to interpret on their own.</sub>
+
+> **TODO:** add the fine-tuned BERT per-category precision, recall and F1 from `e4_transformer_per_class_metrics.csv`.
+
+</details>
+
+<details>
+<summary><b>⚠️ E4 limitations</b></summary>
+
+<br/>
+
+- **Domain gap.** Both models were trained on US-English website policies. E4 does not measure accuracy on Saudi policies.
+- **Category gaps.** The ten OPP-115 categories have no dedicated label for cross-border transfer or breach notification, two PDPL requirements the gap analyser must still judge.
+- **Small test set.** 12 policies, so differences of a few points between the models are within noise.
+- **Label rule.** The two-of-three majority rule is a design choice; it removes 63 segments and cuts multi-label segments from 52% (union of annotators) to 18%.
+
+</details>
 ## 🚀 Quick start
 
 ```bash
