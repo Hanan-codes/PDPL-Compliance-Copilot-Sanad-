@@ -1,27 +1,19 @@
+# SANAD (سَنَد): PDPL Compliance Copilot
 
-## Quick start
+**SANAD** is a bilingual (Arabic/English) research assistant for the Saudi Personal Data Protection Law (PDPL) and its Implementing Regulation. It answers questions **only from the official texts**, cites the article behind each answer, and abstains when the texts do not cover a question. It also analyses a privacy policy against 23 PDPL requirements and reports each one as *covered*, *partial*, or *missing*, with the supporting evidence.
 
-**Requirements:** Python 3.10+, about 8 GB RAM, internet access on first run (retrieval models are downloaded from Hugging Face), and one LLM provider (Gemini API key, or Ollama).
+> **Disclaimer:** SANAD is a decision-support tool. It is not legal advice. Consult a qualified legal professional for binding compliance decisions.
 
-```bash
-git clone https://github.com/<your-user>/sanad.git
-cd sanad
-python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
-```
+Built as an AIEP graduation project (Track B: PDPL Compliance Copilot).
 
-**Configure a provider.**
+---
 
-- *Gemini:* copy `.streamlit/secrets.toml.example` to `.streamlit/secrets.toml` and set `GEMINI_API_KEY`. Never commit this file.
-- *Ollama:* install Ollama, then run `ollama pull qwen2.5:7b` and `ollama serve`.
+## Features
 
-**Run.**
+- **Grounded Q&A.** Answers in Arabic or English, with inline article citations such as `[Source: pdpl | Article: 4]`. If no retrieved passage supports an answer, the system says the question is not covered.
+- **Citation verification.** Every citation tag is checked against the retrieved passages. Invalid citations trigger a repair attempt, and the system abstains if repair fails.
+- **Privacy policy gap analysis.** Splits a policy into paragraphs, classifies them with an OPP-115 clause classifier, maps each of the 23 requirements to candidate paragraphs, and asks an LLM for a verdict. Every quoted sentence must appear verbatim in the policy; otherwise it is removed and the verdict is downgraded.
+- **Two LLM providers.** Google Gemini (cloud) or Ollama (local, e.g. `qwen2.5:7b`).
+- **Exports.** JSON and PDF reports, including Arabic text rendered right-to-left.
 
-```bash
-streamlit run app.py
-```
-
-In the sidebar, choose a provider and click **Connect / Initialise**. The first start loads the models and can take several minutes.
-
-## Project structure
+## Architecture
