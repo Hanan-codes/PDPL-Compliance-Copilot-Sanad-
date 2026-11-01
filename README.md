@@ -482,7 +482,6 @@ PDPL-Compliance-Copilot/
 ├── data/
 │   ├── stage1_outputs/                ← chunks + metadata (4 corpora)
 │   └── stage2_outputs/                ← FAISS indexes + retrieval results
-└── configs/ · eval/ · results/ · tests/ · artifacts/   ← team folders (if present)
 ```
 
 ### Knowledge base
