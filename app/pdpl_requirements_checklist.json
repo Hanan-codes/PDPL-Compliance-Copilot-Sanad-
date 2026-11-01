@@ -1,0 +1,382 @@
+{
+  "meta": {
+    "title": "PDPL Requirements Checklist — قائمة التزامات نظام حماية البيانات الشخصية",
+    "purpose": "الأساس للـ Gap analyser: كل التزام مربوط بمادته الرسمية + سؤال تحقّق يُمرَّر لـ rag_inference.query_copilot + خريطة مبدئية لفئات مُصنّف البنود (OPP-115).",
+    "sources": [
+      "pdpl",
+      "implementing_regulation",
+      "transfer_regulation"
+    ],
+    "note_on_mapping": "فئات المُصنّف محاذاة الآن لمفاتيح نموذج E4 (snake_case). classifier_category=null = لا فئة OPP-115 مكافئة (فجوة تُكشف بالاسترجاع المباشر لا بالمُصنّف): R08,R12,R14,R15,R16,R21.",
+    "status_values": [
+      "covered",
+      "partial",
+      "missing"
+    ],
+    "classifier_labels": [
+      "first_party_collection_use",
+      "third_party_sharing_collection",
+      "user_choice_control",
+      "user_access_edit_deletion",
+      "data_retention",
+      "data_security",
+      "policy_change",
+      "do_not_track",
+      "international_specific_audiences",
+      "other"
+    ],
+    "keywords_note": "المتطلبات بلا فئة OPP-115 لها keywords مميِّزة؛ يُرشَّح لها فقط الفقرات التي تحوي إحدى هذه الكلمات (substring)، لمنع partial الزائف."
+  },
+  "requirements": [
+    {
+      "id": "R01",
+      "requirement_ar": "تحديد أساس نظامي للمعالجة والحصول على موافقة صاحب البيانات (أو استثناء مشروع)",
+      "requirement_en": "Lawful basis for processing and data subject consent (or a lawful exception)",
+      "pdpl_articles": [
+        "5",
+        "6",
+        "7"
+      ],
+      "impl_articles": [
+        "11",
+        "14",
+        "16"
+      ],
+      "classifier_category": "user_choice_control",
+      "check_question": "ما الأساس النظامي لمعالجة البيانات الشخصية ومتى تلزم موافقة صاحب البيانات؟"
+    },
+    {
+      "id": "R02",
+      "requirement_ar": "ضمان حقوق صاحب البيانات: العلم، الوصول، الحصول على نسخة، التصحيح، الإتلاف",
+      "requirement_en": "Data subject rights: be informed, access, obtain a copy, correct, destroy",
+      "pdpl_articles": [
+        "4"
+      ],
+      "impl_articles": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "classifier_category": "user_access_edit_deletion",
+      "check_question": "ما حقوق صاحب البيانات الشخصية بموجب النظام؟"
+    },
+    {
+      "id": "R03",
+      "requirement_ar": "تمكين صاحب البيانات من العدول عن موافقته في أي وقت",
+      "requirement_en": "Allow the data subject to withdraw consent at any time",
+      "pdpl_articles": [
+        "5"
+      ],
+      "impl_articles": [
+        "12"
+      ],
+      "classifier_category": "user_choice_control",
+      "check_question": "هل يحق لصاحب البيانات الرجوع عن موافقته على المعالجة؟"
+    },
+    {
+      "id": "R04",
+      "requirement_ar": "اعتماد سياسة خصوصية وإتاحتها لأصحاب البيانات قبل الجمع",
+      "requirement_en": "Adopt and publish a privacy policy available before collection",
+      "pdpl_articles": [
+        "12"
+      ],
+      "impl_articles": [],
+      "classifier_category": "other",
+      "check_question": "ما التزام جهة التحكم بشأن اعتماد سياسة الخصوصية وإتاحتها؟"
+    },
+    {
+      "id": "R05",
+      "requirement_ar": "إحاطة صاحب البيانات علمًا عند الجمع (الغرض، المسوّغ النظامي، وغيره)",
+      "requirement_en": "Notice/transparency to the data subject at collection",
+      "pdpl_articles": [
+        "13"
+      ],
+      "impl_articles": [
+        "4"
+      ],
+      "classifier_category": "first_party_collection_use",
+      "check_question": "ما المعلومات التي يجب إحاطة صاحب البيانات بها عند جمع بياناته مباشرة؟"
+    },
+    {
+      "id": "R06",
+      "requirement_ar": "جمع البيانات من صاحبها مباشرة وبالحد الأدنى اللازم (تقليل البيانات)",
+      "requirement_en": "Direct collection and data minimisation",
+      "pdpl_articles": [
+        "10",
+        "11"
+      ],
+      "impl_articles": [
+        "15",
+        "19"
+      ],
+      "classifier_category": "first_party_collection_use",
+      "check_question": "هل يجب جمع البيانات من صاحبها مباشرة وبأقل قدر لازم؟"
+    },
+    {
+      "id": "R07",
+      "requirement_ar": "تحديد الغرض من الجمع وعدم معالجته لغرض يتعارض معه (تحديد الغرض)",
+      "requirement_en": "Purpose specification and limitation",
+      "pdpl_articles": [
+        "11"
+      ],
+      "impl_articles": [
+        "18"
+      ],
+      "classifier_category": "first_party_collection_use",
+      "check_question": "ما ضوابط تحديد الغرض من جمع البيانات ومعالجتها لغرض آخر؟"
+    },
+    {
+      "id": "R08",
+      "requirement_ar": "التحقق من دقة البيانات واكتمالها وحداثتها قبل المعالجة",
+      "requirement_en": "Ensure data accuracy, completeness and currency",
+      "pdpl_articles": [
+        "14"
+      ],
+      "impl_articles": [
+        "22"
+      ],
+      "classifier_category": null,
+      "check_question": "ما التزام جهة التحكم بشأن دقة البيانات الشخصية واكتمالها؟",
+      "keywords": [
+        "accuracy",
+        "accurate",
+        "up-to-date",
+        "up to date",
+        "kept complete",
+        "verify",
+        "correct"
+      ]
+    },
+    {
+      "id": "R09",
+      "requirement_ar": "ضبط الإفصاح عن البيانات الشخصية ضمن الأحوال المسموح بها فقط",
+      "requirement_en": "Restrict disclosure to permitted cases only",
+      "pdpl_articles": [
+        "15",
+        "16"
+      ],
+      "impl_articles": [
+        "20"
+      ],
+      "classifier_category": "third_party_sharing_collection",
+      "check_question": "في أي أحوال يجوز لجهة التحكم الإفصاح عن البيانات الشخصية؟"
+    },
+    {
+      "id": "R10",
+      "requirement_ar": "إتلاف البيانات بعد انتهاء الغرض وتحديد مدد الاحتفاظ",
+      "requirement_en": "Destroy data after purpose ends; define retention periods",
+      "pdpl_articles": [
+        "18"
+      ],
+      "impl_articles": [
+        "8"
+      ],
+      "classifier_category": "data_retention",
+      "check_question": "متى يجب إتلاف البيانات الشخصية وما ضوابط الاحتفاظ بها؟"
+    },
+    {
+      "id": "R11",
+      "requirement_ar": "اتخاذ تدابير تنظيمية وإدارية وتقنية لأمن البيانات",
+      "requirement_en": "Organisational, administrative and technical security measures",
+      "pdpl_articles": [
+        "19"
+      ],
+      "impl_articles": [
+        "23"
+      ],
+      "classifier_category": "data_security",
+      "check_question": "ما التدابير المطلوبة لضمان أمن البيانات الشخصية؟"
+    },
+    {
+      "id": "R12",
+      "requirement_ar": "إشعار الهيئة بحادثة التسرب خلال 72 ساعة وإشعار صاحب البيانات عند الضرر",
+      "requirement_en": "Breach notification to the authority within 72h and to the data subject on harm",
+      "pdpl_articles": [
+        "20"
+      ],
+      "impl_articles": [
+        "24"
+      ],
+      "classifier_category": null,
+      "check_question": "خلال كم ساعة يجب إشعار الهيئة عند وقوع حادثة تسرب للبيانات الشخصية؟",
+      "keywords": [
+        "breach",
+        "notify",
+        "notification",
+        "72",
+        "incident",
+        "leak"
+      ]
+    },
+    {
+      "id": "R13",
+      "requirement_ar": "الاستجابة لطلبات صاحب البيانات ضمن المدة النظامية",
+      "requirement_en": "Respond to data subject requests within the statutory period",
+      "pdpl_articles": [
+        "21"
+      ],
+      "impl_articles": [
+        "10"
+      ],
+      "classifier_category": "user_access_edit_deletion",
+      "check_question": "خلال كم مدة يجب الاستجابة لطلبات صاحب البيانات الشخصية؟"
+    },
+    {
+      "id": "R14",
+      "requirement_ar": "إجراء تقويم للأثر على معالجة البيانات للمنتجات/الخدمات",
+      "requirement_en": "Data Protection Impact Assessment (DPIA)",
+      "pdpl_articles": [
+        "22"
+      ],
+      "impl_articles": [
+        "25"
+      ],
+      "classifier_category": null,
+      "check_question": "متى يجب إجراء تقويم الأثر لمعالجة البيانات الشخصية؟",
+      "keywords": [
+        "impact assessment",
+        "dpia",
+        "assess the impact",
+        "impact of processing",
+        "risk assessment"
+      ]
+    },
+    {
+      "id": "R15",
+      "requirement_ar": "الاحتفاظ بسجل أنشطة معالجة البيانات الشخصية",
+      "requirement_en": "Maintain Records of Processing Activities (RoPA)",
+      "pdpl_articles": [
+        "31"
+      ],
+      "impl_articles": [
+        "33"
+      ],
+      "classifier_category": null,
+      "check_question": "ما التزام جهة التحكم بشأن سجل أنشطة معالجة البيانات الشخصية؟",
+      "keywords": [
+        "records of processing",
+        "record of processing",
+        "ropa",
+        "register of",
+        "processing activities",
+        "maintain a record"
+      ]
+    },
+    {
+      "id": "R16",
+      "requirement_ar": "تعيين مسؤول لحماية البيانات الشخصية",
+      "requirement_en": "Appoint a Data Protection Officer (DPO)",
+      "pdpl_articles": [],
+      "impl_articles": [
+        "32"
+      ],
+      "classifier_category": null,
+      "check_question": "ما الحالات التي يجب فيها تعيين مسؤول حماية البيانات الشخصية؟",
+      "keywords": [
+        "data protection officer",
+        "dpo",
+        "appoint",
+        "officer"
+      ]
+    },
+    {
+      "id": "R17",
+      "requirement_ar": "الالتزام بضوابط نقل البيانات خارج المملكة",
+      "requirement_en": "Comply with cross-border data transfer rules",
+      "pdpl_articles": [
+        "29",
+        "30"
+      ],
+      "impl_articles": [],
+      "classifier_category": "international_specific_audiences",
+      "check_question": "ما شروط نقل البيانات الشخصية إلى خارج المملكة؟"
+    },
+    {
+      "id": "R18",
+      "requirement_ar": "اختيار جهة معالجة تقدّم ضمانات كافية والتزامها بالتعليمات",
+      "requirement_en": "Select processors with adequate guarantees and bind them",
+      "pdpl_articles": [],
+      "impl_articles": [
+        "17"
+      ],
+      "classifier_category": "third_party_sharing_collection",
+      "check_question": "ما ضوابط اختيار جهة المعالجة والتزاماتها؟"
+    },
+    {
+      "id": "R19",
+      "requirement_ar": "ضبط المعالجة لأغراض التسويق والمواد الدعائية بالموافقة",
+      "requirement_en": "Marketing/advertising processing requires consent",
+      "pdpl_articles": [
+        "25",
+        "26"
+      ],
+      "impl_articles": [
+        "28",
+        "29"
+      ],
+      "classifier_category": "user_choice_control",
+      "check_question": "ما ضوابط معالجة البيانات لأغراض التسويق المباشر والمواد الدعائية؟"
+    },
+    {
+      "id": "R20",
+      "requirement_ar": "معاملة خاصة للبيانات الحساسة والصحية والائتمانية",
+      "requirement_en": "Special handling for sensitive, health and credit data",
+      "pdpl_articles": [
+        "16"
+      ],
+      "impl_articles": [
+        "26",
+        "27"
+      ],
+      "classifier_category": "first_party_collection_use",
+      "check_question": "ما الضوابط الخاصة بمعالجة البيانات الحساسة والصحية؟"
+    },
+    {
+      "id": "R21",
+      "requirement_ar": "ضوابط المعالجة لأغراض علمية أو بحثية أو إحصائية",
+      "requirement_en": "Controls for scientific/research/statistical processing",
+      "pdpl_articles": [
+        "27"
+      ],
+      "impl_articles": [
+        "30"
+      ],
+      "classifier_category": null,
+      "check_question": "ما ضوابط جمع ومعالجة البيانات لأغراض بحثية أو إحصائية؟",
+      "keywords": [
+        "research",
+        "scientific",
+        "statistical",
+        "statistics",
+        "study"
+      ]
+    },
+    {
+      "id": "R22",
+      "requirement_ar": "إتاحة قناة لتقديم الشكاوى إلى الجهة المختصة",
+      "requirement_en": "Provide a channel for complaints to the authority",
+      "pdpl_articles": [
+        "34"
+      ],
+      "impl_articles": [
+        "37"
+      ],
+      "classifier_category": "user_access_edit_deletion",
+      "check_question": "كيف يقدّم صاحب البيانات شكوى إلى الجهة المختصة؟"
+    },
+    {
+      "id": "R23",
+      "requirement_ar": "المحافظة على سرية البيانات الشخصية من قِبل كل من يعالجها",
+      "requirement_en": "Confidentiality of personal data by anyone processing it",
+      "pdpl_articles": [
+        "41"
+      ],
+      "impl_articles": [],
+      "classifier_category": "data_security",
+      "check_question": "ما التزام من يباشر معالجة البيانات بشأن سرية البيانات الشخصية؟"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+# أسرار: لا ترفعيها أبدًا
+.streamlit/secrets.toml
+.env
+
+# كاش الإجابات (يُنشأ تلقائيًا)
+llm_cache.jsonl
+
+# بايثون والبيئات
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# مخرجات التشغيل
+*.pdf
+!assets/**
+output/

@@ -1,0 +1,24 @@
+# واجهة Streamlit
+streamlit>=1.40
+pandas>=2.1
+numpy
+
+# التصنيف والتحليل (النموذج المحفوظ مدرّب بهذا الإصدار بالضبط)
+scikit-learn==1.8.0
+joblib
+
+# الاسترجاع (RAG)
+faiss-cpu
+sentence-transformers
+transformers
+torch
+rank-bm25
+
+# المزوّدات
+google-genai          # Gemini
+requests              # Ollama
+
+# تصدير PDF
+reportlab
+arabic-reshaper
+python-bidi
