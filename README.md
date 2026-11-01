@@ -471,7 +471,7 @@ PDPL-Compliance-Copilot/
 
 ## 👥 Team
 
-Built by the SANAD team: [Hanan-codes](https://github.com/Hanan-codes) · [Khadijah2000](https://github.com/Khadijah2000)
+Built by the SANAD team: [Hanan-codes](https://github.com/Hanan-codes) · [Khadijah2000](https://github.com/Khadijah2000) · [razanalhadi](https://github.com/razanalhadi)
 
 <p align="center">
   <b>SANAD · سَنَد</b> · AIEP Graduation Project, Track B<br/>
